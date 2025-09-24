@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Origin Driving School | Home</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header" data-header>
+    <div class="container">
+      <div class="overlay" data-overlay></div>
+      <a href="#" class="logo">
+        <img src="./assets/images/logo.png" width="60" alt="Origin Driving School logo">
+      </a>
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li><a href="index.html" class="navbar-link" data-nav-link>Home</a></li>
+          <li><a href="about.html" class="navbar-link" data-nav-link>About Us</a></li>
+          <li><a href="courses.html" class="navbar-link" data-nav-link>Courses</a></li>
+          <li><a href="schedule.html" class="navbar-link" data-nav-link>Schedule</a></li>
+          <li><a href="gallery.html" class="navbar-link" data-nav-link>Training Gallery</a></li>
+          <li><a href="instructors.html" class="navbar-link" data-nav-link>Instructors</a></li>
+          <li><a href="payments.html" class="navbar-link" data-nav-link>Payments</a></li>
+          <li><a href="contact.html" class="navbar-link" data-nav-link>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h2 class="h1 hero-title">Confident Driving Starts Here</h2>
+          <p class="hero-text">Learn to drive with qualified instructors and professional training tools.</p>
+        </div>
+        <div class="hero-banner"></div>
+        <form class="hero-form">
+          <div class="input-wrapper">
+            <label for="input-1" class="input-label">Select Course</label>
+            <input type="text" name="course" id="input-1" class="input-field" placeholder="Beginner / Advanced / Test Prep">
+          </div>
+          <div class="input-wrapper">
+            <label for="input-2" class="input-label">Preferred Branch</label>
+            <input type="text" name="branch" id="input-2" class="input-field" placeholder="Enter suburb or location">
+          </div>
+          <div class="input-wrapper">
+            <label for="input-3" class="input-label">Start Date</label>
+            <input type="date" name="date" id="input-3" class="input-field">
+          </div>
+          <button type="submit" class="btn">Find Lesson</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="section featured-car" id="featured-car">
+      <div class="container">
+        <div class="title-wrapper">
+          <h2 class="h2 section-title">Our Popular Training Cars</h2>
+        </div>
+        <ul class="featured-car-list">
+          <li>
+            <div class="featured-car-card">
+              <figure class="card-banner">
+                <img src="./assets/images/car-1.jpg" alt="Toyota Corolla" loading="lazy" width="440" height="300" class="w-100">
+              </figure>
+              <div class="card-content">
+                <div class="card-title-wrapper">
+                  <h3 class="h3 card-title"><a href="#">Toyota Corolla</a></h3>
+                  <data class="year">Dual-Control</data>
+                </div>
+                <p class="card-item-text">Perfect for learners and safe practice lessons.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="featured-car-card">
+              <figure class="card-banner">
+                <img src="./assets/images/car-2.jpg" alt="Hyundai i30" loading="lazy" width="440" height="300" class="w-100">
+              </figure>
+              <div class="card-content">
+                <div class="card-title-wrapper">
+                  <h3 class="h3 card-title"><a href="#">Hyundai i30</a></h3>
+                  <data class="year">Manual</data>
+                </div>
+                <p class="card-item-text">Manual driving lessons with focus on clutch control.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <img src="./assets/images/logo.png" width="60" alt="Origin Driving School logo">
+          </a>
+          <p class="footer-text">Origin Driving School helps learners become safe and confident drivers with professional lessons and qualified instructors.</p>
+        </div>
+        <ul class="footer-list">
+          <li><p class="footer-list-title">Company</p></li>
+          <li><a href="about.html" class="footer-link">About Us</a></li>
+          <li><a href="courses.html" class="footer-link">Courses</a></li>
+          <li><a href="contact.html" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2025 Origin Driving School | Created for final assessment (DWIN309) at Kent Institute Australia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
+
+<!-- ========================= about.html ========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Origin Driving School</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+  <header class="header" data-header>
+    <div class="container">
+      <a href="#" class="logo"><img src="./assets/images/logo.png" width="70" alt="Origin Driving School logo"></a>
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li><a href="index.html" class="navbar-link" data-nav-link>Home</a></li>
+          <li><a href="about.html" class="navbar-link" data-nav-link>About Us</a></li>
+          <li><a href="courses.html" class="navbar-link" data-nav-link>Courses</a></li>
+          <li><a href="schedule.html" class="navbar-link" data-nav-link>Schedule</a></li>
+          <li><a href="gallery.html" class="navbar-link" data-nav-link>Training Gallery</a></li>
+          <li><a href="instructors.html" class="navbar-link" data-nav-link>Instructors</a></li>
+          <li><a href="payments.html" class="navbar-link" data-nav-link>Payments</a></li>
+          <li><a href="contact.html" class="navbar-link" data-nav-link>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="section get-start">
+      <div class="container">
+        <h2 class="h2 section-title">About Origin Driving School</h2>
+        <p>Established in 2015, Origin Driving School provides professional driving lessons across the inner city and surrounding suburbs. All instructors are fully qualified and hold Working With Children checks, medical driving checks, and police clearances. We aim to help learners pass their VicRoads driving tests and gain confidence on the road.</p>
+        <ul class="get-start-list">
+          <li>
+            <div class="get-start-card">
+              <div class="card-icon icon-1"><ion-icon name="school-outline"></ion-icon></div>
+              <h3 class="card-title">Professional Training</h3>
+              <p class="card-text">Learn with qualified instructors using dual-control vehicles.</p>
+            </div>
+          </li>
+          <li>
+            <div class="get-start-card">
+              <div class="card-icon icon-2"><ion-icon name="calendar-outline"></ion-icon></div>
+              <h3 class="card-title">Flexible Scheduling</h3>
+              <p class="card-text">Book lessons online and manage your progress easily.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <p class="copyright">&copy; 2025 Origin Driving School | Created for final assessment (DWIN309) at Kent Institute Australia</p>
+    </div>
+  </footer>
+  <script src="./assets/js/script.js"></script>
+</body>
+</html>
+
+<!-- ========================= gallery.html ========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training Gallery | Origin Driving School</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+  <header class="header" data-header>
+    <div class="container">
+      <a href="#" class="logo"><img src="./assets/images/logo.png" width="70" alt="Origin Driving School logo"></a>
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li><a href="index.html" class="navbar-link" data-nav-link>Home</a></li>
+          <li><a href="about.html" class="navbar-link" data-nav-link>About Us</a></li>
+          <li><a href="courses.html" class="navbar-link" data-nav-link>Courses</a></li>
+          <li><a href="schedule.html" class="navbar-link" data-nav-link>Schedule</a></li>
+          <li><a href="gallery.html" class="navbar-link" data-nav-link>Training Gallery</a></li>
+          <li><a href="instructors.html" class="navbar-link" data-nav-link>Instructors</a></li>
+          <li><a href="payments.html" class="navbar-link" data-nav-link>Payments</a></li>
+          <li><a href="contact.html" class="navbar-link" data-nav-link>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="section get-start">
+      <div class="container">
+        <h2 class="h2 section-title">Our Training Gallery</h2>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/car-1.jpg" alt="Lesson in progress" class="w-100">
+          </figure>
+          <div class="card-content">
+            <h3 class="h3 card-title">Beginner Lesson</h3>
+            <p>New learners practicing basic driving maneuvers with an instructor.</p>
+          </div>
+        </div>
+        <div class="featured-car-card">
+          <figure class="card-banner">
+            <img src="./assets/images/car-2.jpg" alt="Highway training" class="w-100">
+          </figure>
+          <div class="card-content">
+            <h3 class="h3 card-title">Highway Training</h3>
+            <p>Intermediate learners gaining confidence on major roads.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <p class="copyright">&copy; 2025 Origin Driving School | Created for final assessment (DWIN309) at Kent Institute Australia</p>
+    </div>
+  </footer>
+  <script src="./assets/js/script.js"></script>
+</body>
+</html>
+
+<!-- ========================= INSTALLATION NOTE ========================= -->
+<!-- To run this project locally: -->
+<!-- 1. Place all files in a folder named 'origin_driving_school'. -->
+<!-- 2. Install XAMPP or any local PHP server. -->
+<!-- 3. Move the folder to htdocs (for XAMPP) and start Apache + MySQL. -->
+<!-- 4. Import the provided MySQL schema into phpMyAdmin. -->
+<!-- 5. Access via http://localhost/origin_driving_school/index.html -->
