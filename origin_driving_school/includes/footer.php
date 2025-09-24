@@ -5,7 +5,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="#" class="logo">
-          <img src="/assets/images/logo.png" width="60" alt="Origin Driving School logo">
+          <img src="./assets/images/logo.png" width="60" alt="Origin Driving School logo">
         </a>
         <p class="footer-text">
           Origin Driving School helps learners become safe and confident drivers with professional lessons and qualified instructors.

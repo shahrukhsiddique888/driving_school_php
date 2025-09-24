@@ -179,6 +179,7 @@ html {
 body {
   background: var(--alice-blue-1);
   overflow-x: hidden;
+  padding-top: 70px;
 }
 
 ::-webkit-scrollbar {
@@ -214,7 +215,7 @@ nav ul li ul li a:hover {
     background-color: #f0f0f0;
 }
 
-.container { padding-inline: 15px; }
+.container { padding-inline: 10px; }
 
 button, a { transition: var(--transition); }
 
@@ -1248,4 +1249,33 @@ button, a { transition: var(--transition); }
 
   .footer-list:last-of-type { width: 33.33%; }
 
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.gallery-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-item p {
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
 }

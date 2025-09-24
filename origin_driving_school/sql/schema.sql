@@ -17,13 +17,11 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Dummy users
+-- Dummy users (password = "password" hashed with bcrypt)
 INSERT INTO users (name, email, password, role) VALUES
 ('Admin User', 'admin@drivingschool.com', '$2y$10$7iLpn3nRcP7Ff6cV8oSeN.3Z2KphmXhF3hQyFydF2iY8d1ShW7h5a', 'admin'),
 ('Emily Davis', 'emily@student.com', '$2y$10$2QxyloGZ3bqIVo4n.6Ai4OPaM3AlErXjRITqYjM7VgFFoUy0dDq1C', 'student'),
 ('John Smith', 'john@drivingschool.com', '$2y$10$2QxyloGZ3bqIVo4n.6Ai4OPaM3AlErXjRITqYjM7VgFFoUy0dDq1C', 'instructor');
-
--- (Passwords = "password" hashed with bcrypt)
 
 -- ================================================
 -- Students
@@ -104,6 +102,7 @@ CREATE TABLE schedule (
   FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE SET NULL
 );
 
+-- Dummy schedule record
 INSERT INTO schedule (student_id, instructor_id, vehicle_id, start_time, end_time, status) VALUES
 (1, 1, 1, '2025-10-01 10:00:00', '2025-10-01 11:00:00', 'booked');
 
@@ -159,24 +158,6 @@ CREATE TABLE testimonials (
   message TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE TABLE IF NOT EXISTS schedule (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  student_id INT NOT NULL,
-  instructor_id INT NOT NULL,
-  vehicle_id INT,
-  start_time DATETIME NOT NULL,
-  end_time DATETIME NOT NULL,
-  status ENUM('booked','completed','cancelled') DEFAULT 'booked',
-  FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-  FOREIGN KEY (instructor_id) REFERENCES instructors(id) ON DELETE CASCADE,
-  FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE SET NULL
-);
-
--- Dummy record
-INSERT INTO schedule (student_id, instructor_id, vehicle_id, start_time, end_time, status) VALUES
-(1, 1, 1, '2025-10-01 10:00:00', '2025-10-01 11:00:00', 'booked');
-
 
 INSERT INTO testimonials (student_name, message) VALUES
 ('Emily Davis', 'I passed my test on the first try thanks to their patient instructors!'),

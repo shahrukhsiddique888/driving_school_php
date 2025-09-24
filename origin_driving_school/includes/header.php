@@ -16,7 +16,7 @@
   <div class="container">
     <div class="overlay" data-overlay></div>
     <a href="/public/index.php" class="logo">
-      <img src="/assets/images/logo.png" width="70" alt="Origin Driving School logo">
+      <img src="./assets/images/logo.png" width="70" alt="Origin Driving School logo">
     </a>
     <nav class="navbar" data-navbar>
       <ul class="navbar-list">
