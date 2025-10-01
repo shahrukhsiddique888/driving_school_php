@@ -31,6 +31,7 @@ class Schedule {
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Create a new schedule entry

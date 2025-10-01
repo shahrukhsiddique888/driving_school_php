@@ -6,14 +6,28 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Get user if logged in
 $user = $_SESSION['user'] ?? null;
+if (is_string($user)) {
+    $decodedUser = json_decode($user, true);
+    if (json_last_error() === JSON_ERROR_NONE && is_array($decodedUser)) {
+        $user = $decodedUser;
+        $_SESSION['user'] = $user;
+    } else {
+        $user = null;
+        unset($_SESSION['user']);
+    }
+}
 $unreadNotifications = 0;
 
-if ($user) {
-    require_once __DIR__ . '/../config/db.php';
-    $notifStmt = $pdo->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = ? AND read_at IS NULL");
-    $notifStmt->execute([$user['id']]);
-    $unreadNotifications = (int)$notifStmt->fetchColumn();
-}
+
+if (is_array($user) && isset($user['id'])) {
+    $userId = (int)$user['id'];
+
+    if ($userId > 0) {
+        require_once __DIR__ . '/../config/db.php';
+        $notifStmt = $pdo->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = ? AND read_at IS NULL");
+        $notifStmt->execute([$userId]);
+        $unreadNotifications = (int)$notifStmt->fetchColumn();
+    }
 
 // Function to get initials
 function getInitials($name) {
@@ -21,6 +35,7 @@ function getInitials($name) {
     $first = isset($parts[0]) ? substr($parts[0], 0, 1) : '';
     $second = isset($parts[1]) ? substr($parts[1], 0, 1) : '';
     return strtoupper($first . $second);
+}
 }
 ?>
 <!DOCTYPE html>
@@ -54,7 +69,7 @@ function getInitials($name) {
         <li><a href="/origin_driving_school/contact.php" class="navbar-link" data-nav-link>Contact</a></li>
     
 
-        <?php if ($user): ?>
+        <?php if (is_array($user) && $user): ?>
           <li>
             <a href="/origin_driving_school/notifications.php" class="navbar-link" data-nav-link>
               Notifications<?= $unreadNotifications ? ' (' . $unreadNotifications . ')' : '' ?>
