@@ -2,15 +2,18 @@
 include "includes/header.php";
 require "config/db.php";
 
-if (!isset($_SESSION['user_id'])) {
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check login
+if (!isset($_SESSION['user'])) {
     header("Location: login.php?error=Please login to book a lesson");
     exit;
 }
 
-// Fetch user name for pre-fill
-$stmt = $pdo->prepare("SELECT name FROM users WHERE id = ?");
-$stmt->execute([$_SESSION['user_id']]);
-$user = $stmt->fetch();
+$user = $_SESSION['user']; // this contains id, name, role
+
 ?>
 
 <main>
@@ -54,6 +57,9 @@ $user = $stmt->fetch();
             <input type="date" name="date" class="input-field" required>
           </div>
 
+          <!-- Send user_id as hidden input -->
+          <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+
           <button type="submit" class="btn">Book Lesson</button>
         </form>
       </div>
@@ -61,6 +67,4 @@ $user = $stmt->fetch();
   </section>
 </main>
 
-<?php
-include "includes/footer.php";
-?>
+<?php include "includes/footer.php"; ?>

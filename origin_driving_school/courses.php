@@ -2,10 +2,10 @@
 include "./includes/header.php";
 require "./controllers/courses.php";
 
-session_start();
 $user = $_SESSION['user'] ?? null;
 $role = $user['role'] ?? 'guest';
 ?>
+
 
 <main>
   <section class="section get-start">

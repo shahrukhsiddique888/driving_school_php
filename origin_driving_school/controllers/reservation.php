@@ -1,50 +1,59 @@
 <?php
-require "../config/db.php";
-session_start();
+// controllers/reservation.php
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php?error=Please login to book a lesson");
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $studentName = trim($_POST['student_name']);
-    $pickup = trim($_POST['pickup']);
-    $dropoff = trim($_POST['dropoff']);
-    $date = $_POST['date'];
+require_once __DIR__ . "/../config/db.php";
 
-    if (empty($studentName) || empty($pickup) || empty($dropoff) || empty($date)) {
-        header("Location: ../reservation.php?error=All fields are required");
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user_id      = $_POST['user_id'] ?? null;
+    $student_name = trim($_POST['student_name'] ?? '');
+    $pickup       = trim($_POST['pickup'] ?? '');
+    $dropoff      = trim($_POST['dropoff'] ?? '');
+    $date         = $_POST['date'] ?? '';
+
+    // Validate required fields
+    if (!$user_id || !$student_name || !$pickup || !$dropoff || !$date) {
+        header("Location: ../reservation.php?error=Please+fill+all+fields");
         exit;
     }
 
-    // Insert into reservations
-    $stmt = $pdo->prepare("INSERT INTO reservations (student_name, pickup, dropoff, date) 
-                           VALUES (?, ?, ?, ?)");
-    $stmt->execute([$studentName, $pickup, $dropoff, $date]);
+    try {
+        // Insert into reservations table
+        $stmt = $pdo->prepare(" INSERT INTO reservations (student_name, pickup, dropoff, date)
+            VALUES (?, ?, ?, ?)
+        ");
+        $stmt->execute([$student_name, $pickup, $dropoff, $date]);
 
-    // Insert into schedule (link to student & default instructor/vehicle)
-    $studentIdStmt = $pdo->prepare("SELECT id FROM students WHERE user_id = ?");
-    $studentIdStmt->execute([$_SESSION['user_id']]);
-    $student = $studentIdStmt->fetch();
+        // OPTIONAL: Insert into schedule for visibility
+        // Assuming default instructor_id = 1, vehicle_id = 1
+        // You can change this later to allow choosing instructor/vehicle
+        $schedule = $pdo->prepare("
+            INSERT INTO schedule (student_id, instructor_id, vehicle_id, start_time, end_time, status)
+            VALUES (?, 1, 1, ?, ?, 'booked')
+        ");
 
-    if ($student) {
-        $studentId = $student['id'];
+        // For now, we’ll make start_time = date @ 10:00 and end_time = 11:00
+        $start_time = $date . " 10:00:00";
+        $end_time   = $date . " 11:00:00";
 
-        // Assign default instructor + vehicle (can be made dynamic later)
-        $instructorId = 1; 
-        $vehicleId = 1;
+        // Find student_id from students table based on user_id
+        $s = $pdo->prepare("SELECT id FROM students WHERE user_id = ?");
+        $s->execute([$user_id]);
+        $student = $s->fetch();
 
-        $startTime = $date . " 10:00:00";
-        $endTime   = $date . " 11:00:00";
+        if ($student) {
+            $schedule->execute([$student['id'], $start_time, $end_time]);
+        }
 
-        $stmt = $pdo->prepare("INSERT INTO schedule (student_id, instructor_id, vehicle_id, start_time, end_time, status) 
-                               VALUES (?, ?, ?, ?, ?, 'booked')");
-        $stmt->execute([$studentId, $instructorId, $vehicleId, $startTime, $endTime]);
+        header("Location: ../reservation.php?success=1");
+        exit;
+    } catch (Exception $e) {
+        header("Location: ../reservation.php?error=Booking+failed:+please+try+again");
+        exit;
     }
-
-    header("Location: ../reservation.php?success=Lesson booked successfully");
-    exit;
 } else {
     header("Location: ../reservation.php");
     exit;

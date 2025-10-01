@@ -29,7 +29,7 @@ origin_driving_school/
 │   ├── invoices.php
 │   └── vehicles.php
 
-├── index.php               # Home (assessment banner + team)
+├── index.php               # Home (assessment banner + team) -->
 ├── about.php
 ├── courses.php
 ├── schedule.php
@@ -39,5 +39,11 @@ origin_driving_school/
 ├── contact.php
 ├── login.php
 └── logout.php
+└── reservation.php
 └── sql/
     └── schema.sql
+
+
+
+
+    create automatic invoice after booking 

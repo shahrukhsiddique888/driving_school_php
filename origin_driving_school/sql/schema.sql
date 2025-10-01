@@ -163,3 +163,25 @@ INSERT INTO testimonials (student_name, message) VALUES
 ('Emily Davis', 'I passed my test on the first try thanks to their patient instructors!'),
 ('Michael Brown', 'Booking lessons online was super easy.'),
 ('Sophia Lee', 'The cars are modern and safe. Loved the experience!');
+
+CREATE TABLE cart (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  course_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+);
+
+
+-- ==========================================
+-- User Files (Profile Pictures & Documents)
+-- ==========================================
+CREATE TABLE user_files (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  file_type ENUM('profile_pic','document') NOT NULL,
+  file_path VARCHAR(255) NOT NULL,
+  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

@@ -7,12 +7,12 @@
         <p class="hero-text">Book lessons with professional instructors today.</p>
         <form action="reservation.php" method="post" class="hero-form">
           <div class="input-wrapper">
-            <label class="input-label">Pick-up</label>
-            <input type="text" name="pickup" class="input-field" required>
+            <label class="input-label" >Pick-up</label>
+            <input type="text" name="pickup" placeholder="eg:- parramatta" class="input-field" required>
           </div>
           <div class="input-wrapper">
             <label class="input-label">Drop-off</label>
-            <input type="text" name="dropoff" class="input-field" required>
+            <input type="text" name="dropoff"  placeholder="eg:- wynyard"  class="input-field" required>
           </div>
           <div class="input-wrapper">
             <label class="input-label">Date</label>
@@ -22,7 +22,8 @@
         </form>
       </div>
       <figure class="hero-banner">
-        <img src="assets/images/7.jpg" alt="Driving Lesson" width="800">
+        <img src="assets/images/hello.jpg" alt="Driving Lesson" 
+        >
       </figure>
     </div>
   </section>

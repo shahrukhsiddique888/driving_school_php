@@ -5,7 +5,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="#" class="logo">
-          <img src="./assets/images/logo.png" width="60" alt="Origin Driving School logo">
+          <img src="./assets/images/logo.jpg" width="60" alt="Origin Driving School logo">
         </a>
         <p class="footer-text">
           Origin Driving School helps learners become safe and confident drivers with professional lessons and qualified instructors.
@@ -13,14 +13,14 @@
       </div>
       <ul class="footer-list">
         <li><p class="footer-list-title">Company</p></li>
-        <li><a href="/public/about.php" class="footer-link">About Us</a></li>
-        <li><a href="/public/courses.php" class="footer-link">Courses</a></li>
-        <li><a href="/public/contact.php" class="footer-link">Contact</a></li>
+        <li><a href="/origin_driving_school/about.php" class="footer-link">About Us</a></li>
+        <li><a href="/origin_driving_school/courses.php" class="footer-link">Courses</a></li>
+        <li><a href="/origin_driving_school/contact.php" class="footer-link">Contact</a></li>
       </ul>
     </div>
     <div class="footer-bottom">
       <p class="copyright">&copy; <?= date('Y'); ?> Origin Driving School |
-        Created for final assessment (DWIN309) at Kent Institute Australia
+        Created for final assessment (DWIN309) at Kent Institute Australia by <b>mohammad shahrukh siddiqui(k240226)</b> <b>yash kumar (k231284)</b></b> <b>yash kumar (k231284)</b>
       </p>
     </div>
   </div>

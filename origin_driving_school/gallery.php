@@ -14,25 +14,25 @@ include "includes/header.php";
       <div class="gallery-grid">
         <!-- Gallery Item 1 -->
         <div class="gallery-item">
-          <img src="assets/images/car-4.jpg" alt="Student learning parallel parking">
+          <img src="assets/images/parking.jpg" alt="Student learning parallel parking">
           <p>Emily mastering parallel parking</p>
         </div>
 
         <!-- Gallery Item 2 -->
         <div class="gallery-item">
-          <img src="assets/images/car-1.jpg" alt="Training vehicle">
+          <img src="assets/images/learner.jpg" alt="Training vehicle">
           <p>Our Toyota Corolla fleet</p>
         </div>
 
         <!-- Gallery Item 3 -->
         <div class="gallery-item">
-          <img src="assets/images/car-2.jpg" alt="Instructor guiding student">
+          <img src="assets/images/8.jpg" alt="Instructor guiding student">
           <p>Instructor John guiding a learner</p>
         </div>
 
         <!-- Gallery Item 4 -->
         <div class="gallery-item">
-          <img src="assets/images/car-3.jpg" alt="Mock driving test">
+          <img src="assets/images/mocktest.jpeg" alt="Mock driving test">
           <p>Mock driving test session</p>
         </div>
 

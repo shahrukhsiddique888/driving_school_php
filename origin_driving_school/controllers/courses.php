@@ -1,27 +1,71 @@
 <?php
-require __DIR__ . '/../config/db.php';
-require __DIR__ . '/../models/Course.php';
-
-$courseModel = new Course($pdo);
-
-// Create new course
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $courseModel->create([
-        'title' => $_POST['title'],
-        'description' => $_POST['description'],
-        'duration' => $_POST['duration'],
-        'price' => $_POST['price']
-    ]);
-    header("Location: /public/courses.php?success=1");
-    exit;
+// controllers/courses.php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
-// Delete course
+require_once __DIR__ . "/../config/db.php";
+
+// Ensure courses array is always defined
+$courses = [];
+
+/**
+ * Fetch all courses
+ */
+try {
+    $stmt = $pdo->query("SELECT * FROM courses ORDER BY created_at DESC");
+    $courses = $stmt->fetchAll();
+} catch (PDOException $e) {
+    die("Error fetching courses: " . $e->getMessage());
+}
+
+/**
+ * Add a new course (admin only)
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'])) {
+    $user = $_SESSION['user'] ?? null;
+    if ($user && $user['role'] === 'admin') {
+        $title = trim($_POST['title']);
+        $description = trim($_POST['description']);
+        $duration = trim($_POST['duration']);
+        $price = floatval($_POST['price']);
+
+        if (!empty($title) && !empty($description) && $price > 0) {
+            try {
+                $stmt = $pdo->prepare("INSERT INTO courses (title, description, duration, price) VALUES (?, ?, ?, ?)");
+                $stmt->execute([$title, $description, $duration, $price]);
+                header("Location: ../courses.php?success=1");
+                exit;
+            } catch (PDOException $e) {
+                die("Error adding course: " . $e->getMessage());
+            }
+        } else {
+            header("Location: ../courses.php?error=invalid_input");
+            exit;
+        }
+    } else {
+        header("Location: ../login.php?error=not_authorized");
+        exit;
+    }
+}
+
+/**
+ * Delete a course (admin only)
+ */
 if (isset($_GET['delete'])) {
-    $courseModel->delete($_GET['delete']);
-    header("Location: /public/courses.php?deleted=1");
-    exit;
+    $user = $_SESSION['user'] ?? null;
+    if ($user && $user['role'] === 'admin') {
+        $courseId = intval($_GET['delete']);
+        try {
+            $stmt = $pdo->prepare("DELETE FROM courses WHERE id = ?");
+            $stmt->execute([$courseId]);
+            header("Location: ../courses.php?deleted=1");
+            exit;
+        } catch (PDOException $e) {
+            die("Error deleting course: " . $e->getMessage());
+        }
+    } else {
+        header("Location: ../login.php?error=not_authorized");
+        exit;
+    }
 }
-
-// Fetch all courses
-$courses = $courseModel->all();

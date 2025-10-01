@@ -1,20 +1,29 @@
 <?php
-require "../config/db.php";
-session_start();
+// controllers/cart.php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . "/../config/db.php";
 
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'student') {
-  header("Location: ../login.php");
-  exit();
+if (!isset($_SESSION['user'])) {
+    header("Location: ../login.php?error=Please+login+to+add+courses");
+    exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
-  $courseId = intval($_POST['course_id']);
-  $studentId = $_SESSION['user']['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user_id  = $_SESSION['user']['id'];
+    $course_id = $_POST['course_id'] ?? null;
 
-  // Save to a "cart" table (create it if not exists)
-  $stmt = $pdo->prepare("INSERT INTO cart (student_id, course_id) VALUES (?, ?)");
-  $stmt->execute([$studentId, $courseId]);
+    if ($course_id) {
+        try {
+            $stmt = $pdo->prepare("INSERT INTO cart (user_id, course_id) VALUES (?, ?)");
+            $stmt->execute([$user_id, $course_id]);
 
-  header("Location: ../courses.php?added=1");
-  exit();
+            header("Location: ../cart.php?added=1");
+            exit;
+        } catch (Exception $e) {
+            header("Location: ../courses.php?error=Could+not+add+course");
+            exit;
+        }
+    }
 }

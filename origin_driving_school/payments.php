@@ -1,67 +1,34 @@
 <?php
 include "includes/header.php";
-require "./controllers/payments.php";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $total = $_POST['total'] ?? 0;
+}
 ?>
 
 <main>
   <section class="section get-start">
     <div class="container">
-      <h2 class="h2 section-title">Payments & Invoices</h2>
-      <p class="section-text">
-        View and manage your driving lesson payments and invoices below.
-      </p>
+      <h2 class="h2 section-title">Checkout</h2>
+      <p>You are about to pay: <strong>$<?= number_format($total,2) ?></strong></p>
 
-      <ul class="featured-car-list">
-        <?php if (!empty($invoices)): ?>
-          <?php foreach ($invoices as $inv): ?>
-            <li>
-              <div class="featured-car-card">
-                <div class="card-content">
-                  <div class="card-title-wrapper">
-                    <h3 class="h3 card-title">
-                      Invoice #<?= htmlspecialchars($inv['invoice_id']) ?>
-                    </h3>
-                    <data class="year">
-                      Due: <?= htmlspecialchars($inv['due_date']) ?>
-                    </data>
-                  </div>
-                  <p class="card-text">
-                    <strong>Student:</strong> <?= htmlspecialchars($inv['student_name']) ?><br>
-                    <strong>Issued:</strong> <?= htmlspecialchars($inv['issue_date']) ?>
-                  </p>
-
-                  <!-- Items -->
-                  <ul class="card-list">
-                    <?php if (isset($invoiceItems[$inv['invoice_id']])): ?>
-                      <?php foreach ($invoiceItems[$inv['invoice_id']] as $item): ?>
-                        <li class="card-list-item">
-                          <span class="card-item-text">
-                            <?= htmlspecialchars($item['description']) ?> 
-                            (x<?= $item['qty'] ?>) 
-                            - $<?= number_format($item['unit_price'], 2) ?>
-                          </span>
-                        </li>
-                      <?php endforeach; ?>
-                    <?php endif; ?>
-                  </ul>
-
-                  <p class="card-price">
-                    <strong>$<?= number_format($inv['total'], 2) ?></strong>
-                  </p>
-
-                  <?php if ($inv['status'] === 'paid'): ?>
-                    <button class="btn" style="background: green;">Paid</button>
-                  <?php else: ?>
-                    <button class="btn">Pay Now</button>
-                  <?php endif; ?>
-                </div>
-              </div>
-            </li>
-          <?php endforeach; ?>
-        <?php else: ?>
-          <p>No invoices available.</p>
-        <?php endif; ?>
-      </ul>
+      <!-- Dummy payment form -->
+      <form method="POST" action="controllers/pay.php">
+        <input type="hidden" name="amount" value="<?= $total ?>">
+        <div class="input-wrapper">
+          <label>Card Number</label>
+          <input type="text" class="input-field" placeholder="1111 2222 3333 4444" required>
+        </div>
+        <div class="input-wrapper">
+          <label>Expiry</label>
+          <input type="text" class="input-field" placeholder="MM/YY" required>
+        </div>
+        <div class="input-wrapper">
+          <label>CVV</label>
+          <input type="text" class="input-field" placeholder="123" required>
+        </div>
+        <button type="submit" class="btn">Confirm Payment</button>
+      </form>
     </div>
   </section>
 </main>
