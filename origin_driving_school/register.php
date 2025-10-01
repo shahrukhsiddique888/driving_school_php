@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . "/config/db.php";
+
+$branches = $pdo->query("SELECT id, name FROM branches ORDER BY name")->fetchAll();
+
 include "includes/header.php";
 ?>
 
@@ -37,8 +41,28 @@ include "includes/header.php";
             <label for="password">Password</label>
             <input type="password" name="password" required class="input-field" placeholder="Choose a password">
           </div>
+          <div class="input-wrapper">
+            <label for="branch_id">Preferred Branch</label>
+            <select name="branch_id" class="input-field">
+              <option value="">Select a branch (optional)</option>
+              <?php foreach ($branches as $branch): ?>
+                <option value="<?= (int)$branch['id']; ?>"><?= htmlspecialchars($branch['name']); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
 
           <div class="input-wrapper">
+            <label for="license_status">License Status (students only)</label>
+            <select name="license_status" class="input-field">
+              <option value="none">No licence</option>
+              <option value="learner">Learner</option>
+              <option value="provisional">Provisional</option>
+              <option value="full">Full</option>
+            </select>
+          </div>
+
+          <div class="input-wrapper">
+            
             <label for="role">Register as</label>
             <select name="role" class="input-field" required>
               <option value="student">Student</option>

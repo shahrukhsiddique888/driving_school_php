@@ -31,8 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'role' => $user['role']
             ];
 
-            // Redirect to home (or courses if you want)
-            header("Location: ../index.php");
+          $redirect = '../index.php';
+            if ($user['role'] === 'admin') {
+                $redirect = '../admin/index.php';
+            }
+
+            header("Location: $redirect");
             exit;
         } else {
             header("Location: ../login.php?error=Invalid+email+or+password");

@@ -6,6 +6,14 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Get user if logged in
 $user = $_SESSION['user'] ?? null;
+$unreadNotifications = 0;
+
+if ($user) {
+    require_once __DIR__ . '/../config/db.php';
+    $notifStmt = $pdo->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = ? AND read_at IS NULL");
+    $notifStmt->execute([$user['id']]);
+    $unreadNotifications = (int)$notifStmt->fetchColumn();
+}
 
 // Function to get initials
 function getInitials($name) {
@@ -47,6 +55,14 @@ function getInitials($name) {
     
 
         <?php if ($user): ?>
+          <li>
+            <a href="/origin_driving_school/notifications.php" class="navbar-link" data-nav-link>
+              Notifications<?= $unreadNotifications ? ' (' . $unreadNotifications . ')' : '' ?>
+            </a>
+          </li>
+          <?php if ($user['role'] === 'admin'): ?>
+            <li><a href="/origin_driving_school/admin/index.php" class="navbar-link" data-nav-link>Admin</a></li>
+          <?php endif; ?>
           <li>
             <a href="/origin_driving_school/profile.php" class="user-initials" data-nav-link>
               <?= getInitials($user['name']); ?>

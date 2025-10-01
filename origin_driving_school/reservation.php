@@ -13,6 +13,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 $user = $_SESSION['user']; // this contains id, name, role
+$branches = $pdo->query("SELECT id, name FROM branches ORDER BY name")->fetchAll();
 
 ?>
 
@@ -55,6 +56,14 @@ $user = $_SESSION['user']; // this contains id, name, role
           <div class="input-wrapper">
             <label for="date">Lesson Date</label>
             <input type="date" name="date" class="input-field" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="branch_id">Preferred Branch</label>
+            <select name="branch_id" class="input-field">
+              <?php foreach ($branches as $branch): ?>
+                <option value="<?= (int)$branch['id']; ?>"><?= htmlspecialchars($branch['name']); ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
 
           <!-- Send user_id as hidden input -->

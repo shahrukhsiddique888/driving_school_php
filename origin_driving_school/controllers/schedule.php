@@ -9,10 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $student_id   = $_POST['student_id'];
     $instructor_id = $_POST['instructor_id'];
     $vehicle_id   = $_POST['vehicle_id'];
+    $branch_id    = isset($_POST['branch_id']) && $_POST['branch_id'] !== '' ? (int)$_POST['branch_id'] : null;
     $start_time   = $_POST['start_time'];
     $end_time     = $_POST['end_time'];
 
-    if ($scheduleModel->create($student_id, $instructor_id, $vehicle_id, $start_time, $end_time)) {
+    if ($scheduleModel->create($student_id, $instructor_id, $vehicle_id, $branch_id, $start_time, $end_time)) {
         header("Location: ../schedule.php?success=1");
         exit;
     } else {
@@ -31,5 +32,5 @@ if (isset($_GET['delete'])) {
     }
 }
 
-// Always fetch schedules for the view
-$schedules = $scheduleModel->all();
+$filterBranch = isset($_GET['branch_id']) && $_GET['branch_id'] !== '' ? (int)$_GET['branch_id'] : null;
+$schedules = $scheduleModel->all($filterBranch);

@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pickup       = trim($_POST['pickup'] ?? '');
     $dropoff      = trim($_POST['dropoff'] ?? '');
     $date         = $_POST['date'] ?? '';
+    $branch_id    = isset($_POST['branch_id']) ? (int)$_POST['branch_id'] : null;
 
     // Validate required fields
     if (!$user_id || !$student_name || !$pickup || !$dropoff || !$date) {
@@ -22,17 +23,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Insert into reservations table
-        $stmt = $pdo->prepare(" INSERT INTO reservations (student_name, pickup, dropoff, date)
-            VALUES (?, ?, ?, ?)
+        if ($branch_id) {
+            $branchCheck = $pdo->prepare("SELECT id FROM branches WHERE id = ?");
+            $branchCheck->execute([$branch_id]);
+            if (!$branchCheck->fetchColumn()) {
+                $branch_id = null;
+            }
+        }
+
+        $stmt = $pdo->prepare(" INSERT INTO reservations (student_name, pickup, dropoff, date, branch_id)
+            VALUES (?, ?, ?, ?, ?)
         ");
-        $stmt->execute([$student_name, $pickup, $dropoff, $date]);
+        $stmt->execute([$student_name, $pickup, $dropoff, $date, $branch_id]);
 
         // OPTIONAL: Insert into schedule for visibility
         // Assuming default instructor_id = 1, vehicle_id = 1
         // You can change this later to allow choosing instructor/vehicle
-        $schedule = $pdo->prepare("
-            INSERT INTO schedule (student_id, instructor_id, vehicle_id, start_time, end_time, status)
-            VALUES (?, 1, 1, ?, ?, 'booked')
+        $schedule = $pdo->prepare(" 
+        INSERT INTO schedule (student_id, instructor_id, vehicle_id, branch_id, start_time, end_time, status)
+            VALUES (?, 1, 1, ?, ?, ?, 'booked')
         ");
 
         // For now, we’ll make start_time = date @ 10:00 and end_time = 11:00
@@ -45,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $student = $s->fetch();
 
         if ($student) {
-            $schedule->execute([$student['id'], $start_time, $end_time]);
+            $schedule->execute([$student['id'], $branch_id, $start_time, $end_time]);
         }
 
         header("Location: ../reservation.php?success=1");
@@ -58,3 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: ../reservation.php");
     exit;
 }
+
+
+
