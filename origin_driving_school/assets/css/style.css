@@ -111,7 +111,101 @@ nav>ul>li:hover .dropdown {
   font-size: 20px;
   text-transform: uppercase;
 }
+.user-menu {
+  position: relative;
+}
 
+.user-menu__toggle {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.user-menu__dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0.75rem;
+  min-width: 230px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
+  z-index: 99;
+}
+
+.user-menu__dropdown::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: 18px;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  transform: rotate(45deg);
+  box-shadow: -3px -3px 8px rgba(15, 23, 42, 0.06);
+}
+
+.user-menu:hover .user-menu__dropdown,
+.user-menu:focus-within .user-menu__dropdown {
+  display: block;
+}
+
+.user-menu__greeting {
+  font-size: 0.9rem;
+  color: var(--oxford-blue-4);
+  margin-bottom: 0.75rem;
+}
+
+.user-menu__greeting strong {
+  display: inline-block;
+  margin-top: 0.25rem;
+  color: var(--oxford-blue-1);
+}
+
+.user-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--oxford-blue-1);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.user-menu__link:hover,
+.user-menu__link:focus {
+  background: var(--alice-blue-2);
+  color: var(--carolina-blue);
+}
+
+.user-menu__link--danger {
+  color: #b91c1c;
+}
+
+.user-menu__link--danger:hover,
+.user-menu__link--danger:focus {
+  background: rgba(185, 28, 28, 0.08);
+  color: #7f1d1d;
+}
+
+.user-menu__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  padding: 0 0.4rem;
+  background: var(--carolina-blue);
+  color: #0f172a;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
 
 
 .submenu {
@@ -426,7 +520,14 @@ button, a { transition: var(--transition); }
   font-family: var(--ff-nunito);
 }
 
-.input-wrapper { padding: 15px 20px; }
+.input-wrapper {
+ color: var(--space-cadet);
+  outline: 2px solid transparent;
+  outline-offset: 5px;
+  border-radius: 4px;
+  transition: var(--transition);
+  
+    }
 
 .input-wrapper:not(:last-of-type) { border-bottom: 1px solid hsla(0, 0%, 0%, 0.08); }
 

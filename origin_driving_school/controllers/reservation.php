@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             VALUES (?, ?, ?, ?, ?)
         ");
         $stmt->execute([$student_name, $pickup, $dropoff, $date, $branch_id]);
+        $reservationId = (int)$pdo->lastInsertId();
 
         // OPTIONAL: Insert into schedule for visibility
         // Assuming default instructor_id = 1, vehicle_id = 1
@@ -53,11 +54,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $s->execute([$user_id]);
         $student = $s->fetch();
 
+        $scheduleConfirmed = false;
         if ($student) {
-            $schedule->execute([$student['id'], $branch_id, $start_time, $end_time]);
+            $scheduleConfirmed = $schedule->execute([$student['id'], $branch_id, $start_time, $end_time]);
         }
 
-        header("Location: ../reservation.php?success=1");
+         $_SESSION['latest_receipt'] = [
+            'reservation_id'    => $reservationId,
+            'student_name'      => $student_name,
+            'pickup'            => $pickup,
+            'dropoff'           => $dropoff,
+            'date'              => $date,
+            'start_time'        => $start_time,
+            'end_time'          => $end_time,
+            'schedule_confirmed'=> $scheduleConfirmed,
+            'generated_at'      => date('Y-m-d H:i:s')
+        ];
+
+        header("Location: ../receipt.php");
         exit;
     } catch (Exception $e) {
         header("Location: ../reservation.php?error=Booking+failed:+please+try+again");

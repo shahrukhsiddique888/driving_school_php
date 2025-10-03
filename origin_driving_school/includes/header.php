@@ -30,13 +30,7 @@ if (is_array($user) && isset($user['id'])) {
     }
 
 // Function to get initials
-function getInitials($name) {
-    $parts = explode(" ", trim($name));
-    $first = isset($parts[0]) ? substr($parts[0], 0, 1) : '';
-    $second = isset($parts[1]) ? substr($parts[1], 0, 1) : '';
-    return strtoupper($first . $second);
-}
-}
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,8 +73,9 @@ function getInitials($name) {
             <li><a href="/origin_driving_school/admin/index.php" class="navbar-link" data-nav-link>Admin</a></li>
           <?php endif; ?>
           <li>
-            <a href="/origin_driving_school/profile.php" class="user-initials" data-nav-link>
-              <?= getInitials($user['name']); ?>
+       
+            <a href="/origin_driving_school/profile.php" class="navbar-link" data-nav-link>
+              Profile
             </a>
           </li>
           <li>

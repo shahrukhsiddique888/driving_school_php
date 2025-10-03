@@ -1,4 +1,20 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+$user = $_SESSION['user'] ?? null;
+if (is_string($user)) {
+  $decodedUser = json_decode($user, true);
+  if (json_last_error() === JSON_ERROR_NONE && is_array($decodedUser)) {
+    $user = $decodedUser;
+  }
+}
+
+if (is_array($user) && $user) {
+  header('Location: profile.php');
+  exit;
+}
 include "includes/header.php";
 ?>
 
